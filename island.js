@@ -25,39 +25,38 @@ function getNeighbors(row, col, graph) {
       neighbors.push([row, col + 1])
     }
   }
-  // Return neighbors
- // console.log(neighbors
-    
-  return neighbors
-  // Your code here
+  return neighbors;
 }
-// graph= [
-//   [1,1,1,0,0],
-//   [0,1,1,0,1],
-//   [0,1,1,0,1],
-// ]
-
-// getNeighbors(0, 0, graph);  // 7
-// getNeighbors(2, 4, graph);
 
 function islandSize(row, col, graph) {
 
   // Create a visited set to store visited nodes
-
+  let visited = new Set();
   // Create a stack, put the starting node in the stack
-
+  let thisNode = [row, col];
+  let stack = [[row, col]]
   // Put the stringified starting node in visited
-
+  visited.add(thisNode.toString());
   // Initialize size to 0
-
+  let size = 0;
   // While the stack is not empty,
-
-  // Pop the first node
-
+while (stack.length) {
+  // Pop the last node
+  let node = stack.pop();
   // DO THE THING (increment size by 1)
-
+  size++;
   // Then push all the UNVISITED neighbors on top of the stack
   // and mark them as visited
+  let neighbors = getNeighbors(node[0], node[1], graph);
+  // neighbors.map(neighbor => neighbor.toString());
+  neighbors.forEach((neighbor) => {
+    if (!visited.has(neighbor.toString())) {
+      stack.push(neighbor);
+      visited.add(neighbor.toString());
+    }
+  })
+}
+return size;
   // HINT: This is what your helper function `getNeighbors` is for
   // HINT: Remember, you're storing your visited nodes as strings!
 
